@@ -43,7 +43,7 @@ public class TestTikiWeb {
 		String xPathBoQuaButton = ".//button[contains(text(), 'bỏ qua')]";
 		WebElement eleBoQuaButton = findElementXPathConditionExist(xPathBoQuaButton, objDriver);
 		
-		if (eleBoQuaButton !=null) {
+		if (eleBoQuaButton != null) {
 			
 				Actions act = new Actions(objDriver);
 				act.moveToElement(eleBoQuaButton).click().build().perform();
@@ -80,9 +80,16 @@ public class TestTikiWeb {
 			Actions act = new Actions(objDriver);
 			act.moveToElement(eleCheckBoxTikiNow).click().build().perform();
 			
-			//sau khi click checkbox thi chon dia chi Nhan hang truoc (neu co)
+			//sau khi click checkbox thi chon dia chi Nhan hang truoc va dong Popup Nhan dia chi Nhan hang (neu co)
 			String xPathDongYButton = ".//button[contains(text(), 'ĐỒNG Ý')]";
 			WebElement eleDongYButton = findElementXPathConditionExist(xPathDongYButton, objDriver);
+			
+			if (eleDongYButton != null) {
+				 
+				 act.moveToElement(eleDongYButton).click().build().perform();
+				
+			}
+			
 			
 			if (eleDongYButton !=null) {
 				

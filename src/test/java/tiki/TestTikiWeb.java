@@ -215,6 +215,10 @@ public class TestTikiWeb {
 	    if (!arrCheckStatusChoiceProduct.contains(false)) {
 	    	
 	    	   WebElement elePlusButton = findElementXPathConditionExist(xPathPlusButton, objDriver);
+	    	   ((JavascriptExecutor) objDriver).executeScript( "arguments[0].scrollIntoView();", elePlusButton);
+	    	   
+	    	   String xPathMessageSoLuongChoiceMaxProduct = "//div[@id='snack-bar']/div[1]";
+	    	   
 	    	   Actions act = new Actions(objDriver);
 	    	   
 	    	   //click 1 lan vao nut PlusButton de tang so luong len 2 
@@ -222,6 +226,14 @@ public class TestTikiWeb {
 	    	   
 	    	   WebElement eleChonMuaButton = findElementXPathConditionExist(xPathChonMuaButton, objDriver);
 	    	   act.moveToElement(eleChonMuaButton).click().build().perform();
+	    	   
+	    	   //check Message thong bao chon loai san pham khong duoc chon qua 1 thi dong dong Message nay
+	    	   WebElement eleMessageSoLuongChoiceMaxProduct = findElementXPathConditionExist(xPathMessageSoLuongChoiceMaxProduct, objDriver);
+	    	   if (eleMessageSoLuongChoiceMaxProduct.isDisplayed()) {
+	    		   
+	    		     Thread.sleep(Constants.TIME_WAIT_CLOSE_MESSAGE_MAX_CHOICE_PRODUCT);
+	    		   
+	    	   }
 	    	   
 	    	   //click Xem gio hang va thanh toan button de vao gio hang xem thong tin va thanh tien dung chua? 
 	    	   WebElement eleXemGioHangVaThanhToanButton = findElementXPathConditionExist(xPathXemGioHangVaThanhToanButton, objDriver);

@@ -75,9 +75,9 @@ public class TestTikiWeb {
 				
 				 act.moveToElement(eleDongYButton).click().build().perform();
 				 
-				 String xPathSelectBoxTinhThanhPho = ".//div[@class='form-horizontal']/div[1]//select[1]";
-				 String xPathSelectBoxQuanHuyen = ".//div[@class='form-horizontal']/div[2]//select[1]";
-				 String xPathSelectBoxPhuongXa = ".//div[@class='form-horizontal']/div[3]//select[1]";
+				 String xPathSelectBoxTinhThanhPho = ".//label[contains(text(), 'Tỉnh/ Thành phố')]/../div[1]/select[1]";
+				 String xPathSelectBoxQuanHuyen = ".//label[contains(text(), 'Quận/ Huyện')]/../div[1]/select[1]";
+				 String xPathSelectBoxPhuongXa = ".//label[contains(text(), 'Phường/ Xã')]/../div[1]/select[1]";
 				 String xPathGiaoDenDiaChiNayButton = ".//button[contains(text(), 'GIAO ĐẾN ĐỊA CHỈ NÀY')]";
 				
 				 WebElement eleSelectBoxTinhThanhPho = findElementXPathConditionExist(xPathSelectBoxTinhThanhPho, objDriver);

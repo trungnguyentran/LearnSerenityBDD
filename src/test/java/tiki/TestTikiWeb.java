@@ -84,13 +84,6 @@ public class TestTikiWeb {
 			String xPathDongYButton = ".//button[contains(text(), 'ĐỒNG Ý')]";
 			WebElement eleDongYButton = findElementXPathConditionExist(xPathDongYButton, objDriver);
 			
-			if (eleDongYButton != null) {
-				 
-				 act.moveToElement(eleDongYButton).click().build().perform();
-				
-			}
-			
-			
 			if (eleDongYButton !=null) {
 				
 				 act.moveToElement(eleDongYButton).click().build().perform();

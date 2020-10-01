@@ -19,6 +19,7 @@ import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import net.serenitybdd.junit.runners.SerenityRunner;
@@ -66,8 +67,35 @@ public class TestTikiWeb {
 			Actions act = new Actions(objDriver);
 			act.moveToElement(eleCheckBoxTikiNow).click().build().perform();
 			
-			//sau khi click checkbox thi chon dia chi Nhan hang truoc
+			//sau khi click checkbox thi chon dia chi Nhan hang truoc (neu co)
+			String xPathDongYButton = ".//button[contains(text(), 'ĐỒNG Ý')]";
+			WebElement eleDongYButton = findElementXPathConditionExist(xPathDongYButton, objDriver);
 			
+			if (eleDongYButton !=null) {
+				
+				 act.moveToElement(eleDongYButton).click().build().perform();
+				 
+				 String xPathSelectBoxTinhThanhPho = ".//div[@class='form-horizontal']/div[1]//select[1]";
+				 String xPathSelectBoxQuanHuyen = ".//div[@class='form-horizontal']/div[2]//select[1]";
+				 String xPathSelectBoxPhuongXa = ".//div[@class='form-horizontal']/div[3]//select[1]";
+				 String xPathGiaoDenDiaChiNayButton = ".//button[contains(text(), 'GIAO ĐẾN ĐỊA CHỈ NÀY')]";
+				
+				 WebElement eleSelectBoxTinhThanhPho = findElementXPathConditionExist(xPathSelectBoxTinhThanhPho, objDriver);
+				 Select selectBoxTinhThanhPho = new Select(eleSelectBoxTinhThanhPho);
+				 selectBoxTinhThanhPho.selectByIndex(2);
+				 
+				 WebElement eleSelectBoxQuanHuyen = findElementXPathConditionExist(xPathSelectBoxQuanHuyen, objDriver);
+				 Select selectBoxQuanHuyen = new Select(eleSelectBoxQuanHuyen);
+				 selectBoxQuanHuyen.selectByIndex(5);
+				 
+				 WebElement eleSelectBoxPhuongXa = findElementXPathConditionExist(xPathSelectBoxPhuongXa, objDriver);
+				 Select selectBoxPhuongXa = new Select(eleSelectBoxPhuongXa);
+				 selectBoxPhuongXa.selectByIndex(1);
+				 
+				 WebElement eleGiaoDenDiaChiNayButton = findElementXPathConditionExist(xPathGiaoDenDiaChiNayButton, objDriver);
+				 act.moveToElement(eleGiaoDenDiaChiNayButton).click().build().perform();
+				 
+			}
 			
 			
 		} else {
@@ -93,9 +121,8 @@ public class TestTikiWeb {
 	}
 	
 	@Test
-	public void TC_05_Check_Detail_Product() {
+	public void TC_05_Check_Detail_Product() throws InterruptedException {
 		
-		String titleProductExpected = "Đồng Hồ Thông Minh Apple Watch Series 3 GPS Aluminum Case With Sport Band - Nhập Khẩu Chính Hãng";
 		String xPathTitleProduct = "//h1[@class='title']";
 		String xPathImageProduct = "//div[@class='group-images']//img[1]";
 		String xPathPrice = "//div[@class='left']//following-sibling::div[@class='group']/div[1]/p[1]";
@@ -111,8 +138,7 @@ public class TestTikiWeb {
 		if (eleTitleProduct !=null) {
 			
 			//check title cua san pham dang muon chon
-			String titleProductActual = eleTitleProduct.getText().trim();
-			if (titleProductActual.equals(titleProductExpected) ) {
+			if (eleTitleProduct.isDisplayed()) {
 				
 				arrCheckStatusChoiceProduct.add(true); 
 				
@@ -179,14 +205,16 @@ public class TestTikiWeb {
 	    	   Actions act = new Actions(objDriver);
 	    	   
 	    	   //click 1 lan vao nut PlusButton de tang so luong len 2 
-//	    	   act.moveToElement(elePlusButton).click().build().perform();
+	    	   act.moveToElement(elePlusButton).click().build().perform();
 	    	   
 	    	   WebElement eleChonMuaButton = findElementXPathConditionExist(xPathChonMuaButton, objDriver);
 	    	   act.moveToElement(eleChonMuaButton).click().build().perform();
 	    	   
-	    	   //click Xem gio hang va thanh thoan button de vao gio hang xem thong tin va thanh tien dung chua? 
+	    	   //click Xem gio hang va thanh toan button de vao gio hang xem thong tin va thanh tien dung chua? 
 	    	   WebElement eleXemGioHangVaThanhToanButton = findElementXPathConditionExist(xPathXemGioHangVaThanhToanButton, objDriver);
 	    	   act.moveToElement(eleXemGioHangVaThanhToanButton).click().build().perform();
+	    	   
+	    	   Thread.sleep(Constants.TIME_WAIT_FINISH_LOADING_PAGE_GIO_HANG);
 	    	   
 	    	   String xPathTitleProductGH = "//div[@class='cart-products__desc']/a[1]";
 	    	   String xPathPriceProductGH ="//p[@class='cart-products__real-prices']";
@@ -196,7 +224,7 @@ public class TestTikiWeb {
 	    	   WebElement elePriceProductGH = findElementXPathConditionExist(xPathPriceProductGH, objDriver);
 	    	   WebElement eleThanhTienGH = findElementXPathConditionExist(xPathThanhTienGH, objDriver);
 	    	   
-	    	   boolean isCheckDisplayProductGH = false;
+	    	   boolean isCheckDisplayAllInforProductGH = false;
 	    	   
 	    	   if (eleTitleProductGH !=null 
 	    			 && elePriceProductGH !=null 
@@ -206,34 +234,35 @@ public class TestTikiWeb {
 	    		    	  && elePriceProductGH.isDisplayed()
 	    		    	  && eleThanhTienGH.isDisplayed()) {
 	    		    	  
-	    		    	  isCheckDisplayProductGH = true;
+	    		    	  	isCheckDisplayAllInforProductGH = true;
 	    		    	  
 	    		      } else {
 	    		    	  
-	    		    	  isCheckDisplayProductGH = false;
+	    		    	  	isCheckDisplayAllInforProductGH = false;
 	    		    	  
 	    		      }
 	    		         
 	    		   
 	    	   } else {
 	    		   
-	    		   isCheckDisplayProductGH = false;
+	    		   isCheckDisplayAllInforProductGH = false;
 	    		   
 	    	   }
 	    	   
-	    	   Assert.assertTrue(isCheckDisplayProductGH);
+	    	   //check thong tin so luong san pham va gia tien dung chua?
+	    	   Assert.assertTrue(isCheckDisplayAllInforProductGH);
 	    	   
 	    	
 	    } else {
 	    	
-	    	System.out.println("Stop TC_05_Check_Detail_Product");
+	    	System.out.println("=== Stop TC_05_Check_Detail_Product ===");
 	    	
 	    }
 		
 	}
 	
     private WebElement findElementXPathConditionExist(String xPathName,
-    												 WebDriver driver) {	 
+    												  WebDriver driver) {	 
 		 
 		 try {
 			 WebDriverWait wait = new WebDriverWait(driver, Constants.TIME_WAIT_FIND_ELEMENT_EXIST_DOM);
@@ -248,7 +277,7 @@ public class TestTikiWeb {
 	 }
     
     private List<WebElement> findElementsXPathConditionExist(String xPathName, 
-    													    WebDriver driver) {	
+    													     WebDriver driver) {	
 		 try {
 			 WebDriverWait wait = new WebDriverWait(driver, Constants.TIME_WAIT_FIND_ELEMENT_EXIST_DOM);
 			 By ByElement = getByElementXPath(xPathName);
@@ -269,12 +298,12 @@ public class TestTikiWeb {
 		 return byXPathName;
 	 }
     
-    private boolean isLoadingPage (WebDriver driver) {
+    private boolean isLoadingPage(WebDriver driver) {
     	
     	boolean check = false;
     	JavascriptExecutor js = (JavascriptExecutor) driver; 
     	
-    	while (true) {
+    	while (Constants.IS_NOT_FINISH_LOADING_PAGE) {
     		
     		check = ((String) js.executeScript("return document.readyState")).equals("complete");
     		

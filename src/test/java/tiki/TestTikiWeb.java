@@ -296,8 +296,9 @@ public class TestTikiWeb {
 	}
 	
 	@Test
-	public void TC_06_Close_Web_Browser() {
+	public void TC_06_Close_Web_Browser() throws InterruptedException {
 		
+		Thread.sleep(Constants.TIME_WAIT_CLOSE_WEB_BROWSER);
 		objDriver.quit();
 		
 	}

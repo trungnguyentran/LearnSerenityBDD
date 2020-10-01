@@ -31,11 +31,24 @@ public class TestTikiWeb {
 	WebDriver objDriver;
 	
 	@Test
-	public void TC_01_Open_Tiki_Web() {
+	public void TC_01_Open_Tiki_Web() throws InterruptedException {
 		
 		String url = "https://tiki.vn/";
 		objDriver.get(url);
 		objDriver.manage().window().maximize();
+		
+		//dong Popup Uu dai khuyen mai xuat thien (neu co) thi dong Popup
+		Thread.sleep(Constants.TIME_WAIT_FINISH_OPEN_MAX_BROWSER);
+		
+		String xPathBoQuaButton = ".//button[contains(text(), 'bỏ qua')]";
+		WebElement eleBoQuaButton = findElementXPathConditionExist(xPathBoQuaButton, objDriver);
+		
+		if (eleBoQuaButton !=null) {
+			
+				Actions act = new Actions(objDriver);
+				act.moveToElement(eleBoQuaButton).click().build().perform();
+				
+		}
 		
 	}
 	

@@ -277,12 +277,28 @@ public class TestTikiWeb {
 	    	   //check thong tin so luong san pham va gia tien dung chua?
 	    	   Assert.assertTrue(isCheckDisplayAllInforProductGH);
 	    	   
+	    	   //clear san pham trong gio hang
+	    	   String xPathXoaButton = "//span[contains(text(),'Xóa')]";
+	    	   WebElement eleXoaButton = findElementXPathConditionExist(xPathXoaButton, objDriver);
+	    	   if (eleXoaButton != null) {
+	    		   
+	    		     act.moveToElement(eleXoaButton).click().build().perform();
+	    		   
+	    	   }
+	    	   
 	    	
 	    } else {
 	    	
 	    	System.out.println("=== Stop TC_05_Check_Detail_Product ===");
 	    	
 	    }
+		
+	}
+	
+	@Test
+	public void TC_06_Close_Web_Browser() {
+		
+		objDriver.quit();
 		
 	}
 	
